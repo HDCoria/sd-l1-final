@@ -1,7 +1,7 @@
 import anyTest, { TestFn } from "ava";
 import { PelisCollection, Peli } from "./models";
 
-export const getRandomId = () => {
+const getRandomId = () => {
   const randomNumber = Math.floor(Math.random() * 100000);
   return 129856 + randomNumber;
 };
@@ -57,6 +57,7 @@ test.serial("Testeo el método search", async (t) => {
     tags: ["yy", "uu"],
   });
   const all = await collection.getAll();
+  console.log("soy all ----------",all);
   const a = all[0];
   // El search debe encontrar ambas pelis creadas a partir de la session
   const b = await collection.search({ title: SESSION_ID.toString() });

@@ -1,6 +1,10 @@
 import anyTest, { TestFn } from "ava";
 import { PelisController } from "./controllers";
-import { getRandomId } from "./models.test";
+
+const getRandomId = () => {
+  const randomNumber = Math.floor(Math.random() * 100000);
+  return 129856 + randomNumber;
+};
 
 const TEST_ID = getRandomId();
 const SOME_TITLE = "una peli " + TEST_ID;
@@ -24,7 +28,8 @@ test.serial(
   async (t) => {
     // testeo peli agregada desde el script test del package
     const controller = new PelisController();
-    const peli = await controller.getOne({ id: 4321865 });
+    const peli = await controller.getOne({id:4321865});
+    console.log(peli)
     t.is(peli.title, "peli de la terminal 4321865");
   }
 );
@@ -63,6 +68,9 @@ test.serial("Testeo PelisController search tag", async (t) => {
   const pelis = await controller.get({
     search: { title: "peli", tag: SOME_TAG },
   });
+  console.log(pelis)
   const ids = pelis.map((b) => b.id);
+  console.log(ids);
   t.deepEqual(ids, [TEST_ID, SECOND_TEST_ID]);
 });
+// Aca esta fallando la logica del search cuando busca por ambas  de alguna manera cre
